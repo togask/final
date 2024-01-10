@@ -1,26 +1,28 @@
 <template>
   <div class="container">
     <h1 class="title">ヨーグルト一覧</h1>
-    <div class="columns is-multiline">
-      <div class="column is-one-quarter" v-for="yogurt in yogurts" :key="yogurt.id">
-        <div class="card" @click="bringToFront(yogurt)">
-          <div class="card-content">
-            <p class="title">{{ yogurt.name }}</p>
-            <p class="subtitle">￥{{ yogurt.price }}</p>
-          </div>
+    <draggable v-model="yogurts" @start="drag = true" @end="drag = false">
+        <div v-for="yogurt in yogurts" :key="yogurt.id">
+          <yogurt-card :yogurt="yogurt" />
         </div>
-      </div>
-    </div>
+      </draggable>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import draggable from 'vuedraggable';
+import YogurtCard from './YogurtCard.vue';
 
 export default {
+  components: {
+    draggable,
+    YogurtCard
+  },
   data() {
     return {
-      yogurts: []
+      yogurts: [],
+      drag: false
     };
   },
   mounted() {
