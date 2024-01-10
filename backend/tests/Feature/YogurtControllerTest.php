@@ -5,11 +5,11 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use App\Models\Yogurt; // Yogurt モデルを追加
+use App\Models\Yogurt;
 
 class YogurtControllerTest extends TestCase
 {
-    use RefreshDatabase; // データベースをリセットするために使用
+    use RefreshDatabase;
 
     /**
      * 全てのヨーグルトを取得するテスト
