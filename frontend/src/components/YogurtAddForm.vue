@@ -1,0 +1,55 @@
+<template>
+  <div class="container">
+    <h1 class="title">新しいヨーグルトを追加</h1>
+    <div class="field">
+      <label class="label">商品名</label>
+      <div class="control">
+        <input class="input" type="text" v-model="newYogurt.name" placeholder="ヨーグルトの名前">
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">価格</label>
+      <div class="control">
+        <input class="input" type="number" v-model="newYogurt.price" placeholder="ヨーグルトの価格">
+      </div>
+    </div>
+    <div class="control">
+      <button class="button is-primary" @click="addYogurt">追加</button>
+    </div>
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      newYogurt: {
+        name: '',
+        price: 0
+      }
+    };
+  },
+  methods: {
+    addYogurt() {
+      axios.post('/api/yogurts', this.newYogurt)
+        .then(() => {
+          alert('ヨーグルトが追加されました');
+          // フォームをリセット
+          this.newYogurt.name = '';
+          this.newYogurt.price = 0;
+          // 他のコンポーネントへの通知やデータの再読み込みが必要な場合はここで行う
+        })
+        .catch(error => {
+          console.error('ヨーグルトの追加に失敗しました', error);
+          alert('エラーが発生しました');
+        });
+    }
+  }
+};
+</script>
+
+<style scoped>
+/* ここにカスタムスタイルを追加 */
+</style>
