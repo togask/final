@@ -1,26 +1,45 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <!-- 追加エリア -->
+    <section class="section">
+      <yogurt-add-form />
+    </section>
+
+    <!-- 一覧エリア -->
+    <section class="section">
+      <yogurt-list />
+    </section>
+
+    <!-- 更新エリア -->
+    <section class="section">
+      <yogurt-update-form />
+    </section>
+
+    <!-- 削除エリア -->
+    <section class="section">
+      <yogurt-delete />
+    </section>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import YogurtAddForm from './components/YogurtAddForm.vue';
+import YogurtList from './components/YogurtList.vue';
+import YogurtUpdateForm from './components/YogurtUpdateForm.vue';
+import YogurtDelete from './components/YogurtDelete.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
-}
+    YogurtAddForm,
+    YogurtList,
+    YogurtUpdateForm,
+    YogurtDelete
+  },
+  // その他のスクリプト...
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+/* 必要に応じてスタイルを追加 */
 </style>
