@@ -60,5 +60,10 @@ export default {
 </script>
 
 <style scoped>
-/* ここにカスタムスタイルを追加 */
+.container {
+  border: 1px solid #dbdbdb;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 8px;
+}
 </style>
