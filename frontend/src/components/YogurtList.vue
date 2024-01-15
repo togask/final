@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { mapState } from 'vuex';
 import draggable from 'vuedraggable';
 import YogurtCard from './YogurtCard.vue';
 
@@ -24,19 +24,20 @@ export default {
   },
   data() {
     return {
-      yogurts: [],
       isLoading: true,
       drag: false
     };
+  },
+  computed: {
+    ...mapState(['yogurts'])
   },
   mounted() {
     this.fetchYogurts();
   },
   methods: {
     fetchYogurts() {
-      axios.get('/api/yogurts')
-        .then(response => {
-          this.yogurts = response.data;
+      this.$store.dispatch('fetchYogurts')
+        .then(() => {
           this.isLoading = false;
         })
         .catch(error => {

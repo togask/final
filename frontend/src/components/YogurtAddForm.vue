@@ -34,12 +34,12 @@ export default {
   methods: {
     addYogurt() {
       axios.post('/api/yogurts', this.newYogurt)
-        .then(() => {
+        .then(response => {
+          this.$store.dispatch('addYogurt', response.data);
+          
           alert('ヨーグルトが追加されました');
-          // フォームをリセット
           this.newYogurt.name = '';
           this.newYogurt.price = 0;
-          // 他のコンポーネントへの通知やデータの再読み込みが必要な場合はここで行う
         })
         .catch(error => {
           console.error('ヨーグルトの追加に失敗しました', error);
