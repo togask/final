@@ -1,24 +1,21 @@
 <template>
-  <div id="app">
-    <!-- 追加エリア -->
-    <section class="section">
-      <yogurt-add-form />
-    </section>
+  <div id="app" class="app-container">
+    <header class="header">
+      <h1>datemi_farm</h1>
+    </header>
+    <div class="main-content">
+      <!-- 一覧エリア -->
+      <section class="yogurt-list-area">
+        <yogurt-list />
+      </section>
 
-    <!-- 一覧エリア -->
-    <section class="section">
-      <yogurt-list />
-    </section>
-
-    <!-- 更新エリア -->
-    <section class="section">
-      <yogurt-update-form />
-    </section>
-
-    <!-- 削除エリア -->
-    <section class="section">
-      <yogurt-delete />
-    </section>
+      <!-- 追加/更新/削除エリア -->
+      <div class="edit-areas">
+        <yogurt-add-form />
+        <yogurt-update-form />
+        <yogurt-delete />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -40,4 +37,30 @@ export default {
 </script>
 
 <style>
+.app-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background-color: #f8f9fa;
+  padding: 10px;
+  text-align: center;
+}
+
+.main-content {
+  display: flex;
+  height: 100vh;
+}
+
+.yogurt-list-area {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.edit-areas {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
 </style>
