@@ -1,17 +1,17 @@
 <template>
   <div class="container">
     <h1 class="title">ヨーグルトを編集</h1>
-    <div v-if="selectedYogurt">
+    <div v-if="editableYogurt">
       <div class="field">
         <label class="label">商品名</label>
         <div class="control">
-          <input class="input" type="text" v-model="selectedYogurt.name" placeholder="ヨーグルトの名前">
+          <input class="input" type="text" v-model="editableYogurt.name" placeholder="ヨーグルトの名前">
         </div>
       </div>
       <div class="field">
         <label class="label">価格</label>
         <div class="control">
-          <input class="input" type="number" v-model="selectedYogurt.price" placeholder="ヨーグルトの価格">
+          <input class="input" type="number" v-model="editableYogurt.price" placeholder="ヨーグルトの価格">
         </div>
       </div>
       <div class="control">
@@ -23,27 +23,38 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { mapState } from 'vuex';
 
 export default {
+  computed: {
+    ...mapState(['selectedYogurt']),
+  },
   data() {
     return {
-      selectedYogurt: null
+      editableYogurt: null,
     };
+  },
+  watch: {
+    selectedYogurt: {
+      immediate: true,
+      handler(newVal) {
+        this.editableYogurt = { ...newVal };
+      }
+    }
   },
   methods: {
     updateYogurt() {
-      axios.put(`/api/yogurts/${this.selectedYogurt.id}`, this.selectedYogurt)
+      this.$store.dispatch('updateYogurt', this.editableYogurt)
         .then(() => {
           alert('ヨーグルトが更新されました');
-          // 必要に応じてデータの再読み込みや通知を行う
+          this.editableYogurt = null;
+          this.$store.commit('SET_SELECTED_YOGURT', null);
         })
         .catch(error => {
           console.error('ヨーグルトの更新に失敗しました', error);
-          alert('エラーが発生しました');
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

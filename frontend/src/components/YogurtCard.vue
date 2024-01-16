@@ -1,5 +1,6 @@
 <template>
   <div class="card" draggable>
+    <input type="checkbox" :checked="isChecked" @change="handleSelection(yogurt)" />
     <header class="card-header">
       <p class="card-header-title">{{ yogurt.name }}</p>
     </header>
@@ -18,7 +19,21 @@ export default {
       type: Object,
       required: true
     }
-  }
+  },
+  computed: {
+    isChecked() {
+      return this.yogurt.id === this.$store.state.selectedYogurt?.id;
+    },
+  },
+  methods: {
+    handleSelection(yogurt) {
+      if (this.isChecked) {
+        this.$store.commit('SET_SELECTED_YOGURT', null);
+      } else {
+        this.$store.dispatch('selectYogurt', yogurt);
+      }
+    }
+  },
 };
 </script>
 
