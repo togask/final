@@ -1,19 +1,13 @@
 <template>
   <div class="container">
     <h1 class="title">ヨーグルトを削除</h1>
-    <div class="field">
-      <label class="label">削除するヨーグルトを選択</label>
-      <div class="control">
-        <div class="select">
-          <select v-model="selectedYogurt">
-            <option v-for="yogurt in yogurts" :key="yogurt.id" :value="yogurt.id">
-              {{ yogurt.name }}
-            </option>
-          </select>
-        </div>
-      </div>
+    <div v-if="selectedYogurt">
+      <p>選択されたヨーグルト: {{ selectedYogurt.name }}</p>
+      <button class="button is-danger" @click="deleteYogurt">削除</button>
     </div>
-    <button class="button is-danger" @click="deleteYogurt">削除</button>
+    <div v-else>
+      ヨーグルトを選択してください。
+    </div>    
   </div>
 </template>
 
@@ -22,12 +16,7 @@ import { mapState } from 'vuex';
 
 export default {
   computed: {
-    ...mapState(['yogurts']),
-  },
-  data() {
-    return {
-      selectedYogurt: null,
-    };
+    ...mapState(['selectedYogurt']),
   },
   methods: {
     deleteYogurt() {
@@ -36,9 +25,10 @@ export default {
         return;
       }
 
-      this.$store.dispatch('deleteYogurt', this.selectedYogurt)
+      this.$store.dispatch('deleteYogurt', this.selectedYogurt.id)
         .then(() => {
           alert('ヨーグルトが削除されました');
+          this.$store.commit('SET_SELECTED_YOGURT', null);
         })
         .catch(error => {
           console.error('ヨーグルトの削除に失敗しました', error);
