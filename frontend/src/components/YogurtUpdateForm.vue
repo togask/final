@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1 class="title">ヨーグルトを編集</h1>
-    <div v-if="editableYogurt">
+    <div v-if="isYogurtSelected">
       <div class="field">
         <label class="label">商品名</label>
         <div class="control">
@@ -28,19 +28,22 @@ import { mapState } from 'vuex';
 export default {
   computed: {
     ...mapState(['selectedYogurt']),
-  },
-  data() {
-    return {
-      editableYogurt: null,
-    };
+
+    isYogurtSelected() {
+      return this.selectedYogurt && this.selectedYogurt.id !== undefined;
+    },
   },
   watch: {
     selectedYogurt: {
       immediate: true,
       handler(newVal) {
-        this.editableYogurt = { ...newVal };
-      }
-    }
+        if (newVal && newVal.id !== undefined) {
+          this.editableYogurt = { ...newVal };
+        } else {
+          this.editableYogurt = null;
+        }
+      },
+    },
   },
   methods: {
     updateYogurt() {
