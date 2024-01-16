@@ -18,38 +18,28 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { mapState } from 'vuex';
 
 export default {
+  computed: {
+    ...mapState(['yogurts']),
+  },
   data() {
     return {
-      yogurts: [], // 一覧データ
-      selectedYogurt: null // 選択されたヨーグルトのID
+      selectedYogurt: null,
     };
   },
-  mounted() {
-    this.fetchYogurts();
-  },
   methods: {
-    fetchYogurts() {
-      axios.get('/api/yogurts')
-        .then(response => {
-          this.yogurts = response.data;
-        })
-        .catch(error => {
-          console.error('ヨーグルトの取得に失敗しました', error);
-        });
-    },
     deleteYogurt() {
       if (!this.selectedYogurt) {
         alert('ヨーグルトを選択してください');
         return;
       }
 
-      axios.delete(`/api/yogurts/${this.selectedYogurt}`)
+      this.$store.dispatch('deleteYogurt', this.selectedYogurt)
         .then(() => {
           alert('ヨーグルトが削除されました');
-          this.fetchYogurts(); // リストを更新
+          // Vuex ストアのステート更新により、一覧が自動的に更新される
         })
         .catch(error => {
           console.error('ヨーグルトの削除に失敗しました', error);

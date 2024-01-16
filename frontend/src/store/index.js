@@ -19,6 +19,16 @@ const store = createStore({
     addYogurt({ commit }, newYogurt) {
       commit("ADD_YOGURT", newYogurt);
     },
+    deleteYogurt({ commit }, yogurtId) {
+      axios
+        .delete(`/api/yogurts/${yogurtId}`)
+        .then(() => {
+          commit("REMOVE_YOGURT", yogurtId);
+        })
+        .catch((error) => {
+          console.error("ヨーグルトの削除に失敗しました", error);
+        });
+    },
   },
   mutations: {
     SET_YOGURTS(state, yogurts) {
@@ -26,6 +36,9 @@ const store = createStore({
     },
     ADD_YOGURT(state, newYogurt) {
       state.yogurts.push(newYogurt);
+    },
+    REMOVE_YOGURT(state, yogurtId) {
+      state.yogurts = state.yogurts.filter((yogurt) => yogurt.id !== yogurtId);
     },
   },
 });
