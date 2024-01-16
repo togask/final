@@ -42,11 +42,8 @@ export default {
   cursor: pointer;
   transition: transform 0.3s ease;
   border: 1px solid #ccc;
-  /* 枠線の追加 */
   border-radius: 5px;
-  /* 角を丸くする */
   margin-bottom: 10px;
-  /* 下にマージンを追加 */
 }
 
 .card:hover {

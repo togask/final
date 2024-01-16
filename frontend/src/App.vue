@@ -36,10 +36,8 @@ export default {
     YogurtUpdateForm,
     YogurtDelete
   },
-  // その他のスクリプト...
 };
 </script>
 
 <style>
-/* 必要に応じてスタイルを追加 */
 </style>

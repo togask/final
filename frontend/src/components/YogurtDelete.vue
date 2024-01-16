@@ -39,7 +39,6 @@ export default {
       this.$store.dispatch('deleteYogurt', this.selectedYogurt)
         .then(() => {
           alert('ヨーグルトが削除されました');
-          // Vuex ストアのステート更新により、一覧が自動的に更新される
         })
         .catch(error => {
           console.error('ヨーグルトの削除に失敗しました', error);
