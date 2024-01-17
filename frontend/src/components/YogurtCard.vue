@@ -1,6 +1,6 @@
 <template>
-  <div class="card" draggable>
-    <input type="checkbox" :checked="isChecked" @change="handleSelection(yogurt)" />
+  <div class="card" draggable @click="handleCardClick">
+    <input type="checkbox" class="hidden-checkbox" :checked="isChecked" @change="handleSelection(yogurt)" />
     <header class="card-header">
       <p class="card-header-title">{{ yogurt.name }}</p>
     </header>
@@ -32,6 +32,9 @@ export default {
       } else {
         this.$store.dispatch('selectYogurt', yogurt);
       }
+    },
+    handleCardClick() {
+      this.handleSelection(this.yogurt);
     }
   },
 };
@@ -48,4 +51,11 @@ export default {
 
 .card:hover {
   transform: translateY(-5px);
-}</style>
+}
+
+.hidden-checkbox {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+</style>
